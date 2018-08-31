@@ -1,0 +1,19 @@
+{
+    "name": "automate-itsme",
+    "version": "1.0.0",
+    "description": "Automatic accepting of itsme login via script",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "git@gitlab.com:forcit/ctzn/automate-itsme.git"
+    },
+    "keywords": [
+        "itsme",
+        "automation"
+    ],
+    "author": "Matthias Kunnen <matthias.kunnen@gmail.com>",
+    "license": "UNLICENSED",
+    "dependencies": {
+        "adbkit": "^2.11.0"
+    }
+}
