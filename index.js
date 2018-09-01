@@ -38,7 +38,7 @@ const sleep = util.promisify(setTimeout);
             y: 1048 + 343,
         };
         const xTransformation = 290;
-        const yTransformation = 170;
+        const yTransformation = 140;
         const mapping = {
             '0': {
                 x: 1,
