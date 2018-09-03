@@ -26,7 +26,7 @@ const sleep = util.promisify(setTimeout);
 
         console.log('Submitting ' + authenticationUrl.href);
         await adbClient.shell(device.id, `am start -a "android.intent.action.VIEW" -d "${authenticationUrl.href}"`);
-        await sleep(4000);
+        await sleep(5000);
 
         console.log('Pressing confirm');
         await adbClient.shell(device.id, 'input tap 30 1044');
