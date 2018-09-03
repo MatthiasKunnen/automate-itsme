@@ -1,14 +1,16 @@
 const adb = require('adbkit');
-const fs = require('fs');
 const url = require('url');
 const util = require('util');
 
 const sleep = util.promisify(setTimeout);
 
-(async () => {
+/**
+ * @param configuration
+ * @param deviceId Optional device ID. If left empty, the first device in the
+ * `adb devices` list will be used.
+ */
+module.exports = async function execute(configuration, deviceId) {
     try {
-        const configuration = JSON.parse(await fs.readFileSync('./configuration.json', 'utf8'));
-
         const authenticationUrl = new url.URL(configuration.endpoint);
         authenticationUrl.searchParams.append('client_id', configuration.client_id);
         authenticationUrl.searchParams.append('response_type', 'code');
@@ -22,7 +24,13 @@ const sleep = util.promisify(setTimeout);
             throw Error('Expected at least one device.');
         }
 
-        const device = devices[0];
+        const device = deviceId != null
+            ? devices.find(d => d.id = deviceId)
+            : devices[0];
+
+        if (device == null) {
+            throw Error('Device not found');
+        }
 
         console.log('Submitting ' + authenticationUrl.href);
         await adbClient.shell(device.id, `am start -a "android.intent.action.VIEW" -d "${authenticationUrl.href}"`);
@@ -106,4 +114,4 @@ const sleep = util.promisify(setTimeout);
     } catch (e) {
         console.error(e)
     }
-})();
+};
